@@ -4,17 +4,17 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "company")
-public class Employee {
+@Table(name = "employee")
+public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
 
-    @ManyToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    @ElementCollection(targetClass = Company.class)
-    private List<Company> company;
+    @ManyToMany(mappedBy = "employees", cascade = CascadeType.ALL)
+    @ElementCollection(targetClass = CompanyEntity.class)
+    private List<CompanyEntity> companies;
 
     public Integer getId() {
         return id;
@@ -32,11 +32,11 @@ public class Employee {
         this.name = name;
     }
 
-    public List<Company> getCompany() {
-        return company;
+    public List<CompanyEntity> getCompanies() {
+        return companies;
     }
 
-    public void setCompany(List<Company> company) {
-        this.company = company;
+    public void setCompanies(List<CompanyEntity> companies) {
+        this.companies = companies;
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "company")
-public class Company {
+public class CompanyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -14,11 +14,11 @@ public class Company {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "company_employee",
-            joinColumns = @JoinColumn(name = "employee_id"),
-            inverseJoinColumns = @JoinColumn(name = "company_id")
+            joinColumns = @JoinColumn(name = "company_id"),
+            inverseJoinColumns = @JoinColumn(name = "employee_id")
     )
-    @ElementCollection(targetClass = Employee.class)
-    private List<Employee> employee;
+    @ElementCollection(targetClass = EmployeeEntity.class)
+    private List<EmployeeEntity> employees;
 
     public Integer getId() {
         return id;
@@ -36,11 +36,11 @@ public class Company {
         this.name = name;
     }
 
-    public List<Employee> getEmployee() {
-        return employee;
+    public List<EmployeeEntity> getEmployees() {
+        return employees;
     }
 
-    public void setEmployee(List<Employee> employee) {
-        this.employee = employee;
+    public void setEmployees(List<EmployeeEntity> employees) {
+        this.employees = employees;
     }
 }

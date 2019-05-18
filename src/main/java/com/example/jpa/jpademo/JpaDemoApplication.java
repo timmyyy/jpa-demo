@@ -25,27 +25,50 @@ public class JpaDemoApplication {
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         Arrays.stream(ctx.getBeanDefinitionNames()).forEach(System.out::println);
         return args -> {
-            Company company1 = new Company();
-            company1.setName("comp1");
-
-            ArrayList<Employee> emps = new ArrayList<>();
-
-            Employee e1 = new Employee();
-            e1.setName("emp1");
-            Employee e2 = new Employee();
-            e2.setName("emp2");
-            emps.add(e1);
-            emps.add(e2);
-
-            company1.setEmployee(emps);
-
+            CompanyEntity company1 = createCompanyEntity();
             repo.save(company1);
 
-            Iterable<Company> all = repo.findAll();
+            Iterable<CompanyEntity> allCompanies = repo.findAll();
 
-            System.out.println(((List) all).size());
-            all.forEach(company -> System.out.println(company));
+//            for (CompanyEntity ce : allCompanies) {
+//
+//                List<EmployeeEntity> eeList = ce.getEmployees();
+//                String eeTotal = "";
+//                for (EmployeeEntity ee : eeList) {
+//                    eeTotal = String.format("%s: %s, %s",
+//                            ee.toString(),
+//                            ee.getId(),
+//                            ee.getName()
+//                    );
+//                }
+//
+//                String total = String.format("%s: %s, %s, Employees: \n%s",
+//                        ce.toString(),
+//                        ce.getId(),
+//                        ce.getName(),
+//                        eeTotal
+//                );
+//                System.out.println(total);
+//            }
         };
+    }
+
+    private CompanyEntity createCompanyEntity() {
+        CompanyEntity company1 = new CompanyEntity();
+        company1.setName("comp1");
+
+        ArrayList<EmployeeEntity> emps = new ArrayList<>();
+
+        EmployeeEntity e1 = new EmployeeEntity();
+        e1.setName("emp1");
+        EmployeeEntity e2 = new EmployeeEntity();
+        e2.setName("emp2");
+
+        emps.add(e1);
+        emps.add(e2);
+
+        company1.setEmployees(emps);
+        return company1;
     }
 
 
